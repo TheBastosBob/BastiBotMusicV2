@@ -1,10 +1,12 @@
 const { Client, Intents, MessageEmbed, MessageButton, MessageActionRow, MessageAttachment} = require('discord.js');
 var search = require('youtube-search');
 const ytdl = require('ytdl-core-discord');
+const { Youtube, Spotify } = require('you-lister')
 const { joinVoiceChannel, createAudioPlayer, NoSubscriberBehavior, createAudioResource, AudioPlayerStatus} = require('@discordjs/voice');
 const {playmusic} = require("./playmusic");
 const {thumbnail} = require("ytdl-core-discord");
 const Canvas = require("canvas");
+const {get_playlist_urls, get_playlist_count} = require("./playlist");
 const client = new Client({ intents: [Intents.FLAGS.GUILDS,Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES]});
 const prefix = '|'
 let voice_status
@@ -13,10 +15,16 @@ let queue = []
 let messId
 
 
+
+//SET BASTIBOT ACTIVITY
+
+
 var opts = {
     maxResults: 10,
     key: ''
 };
+
+
 
 const NextButton = new MessageButton()
     .setCustomId('next')
@@ -70,11 +78,13 @@ const queuEmbed = new MessageEmbed()
     .setTitle('Music in queue')
 
 
+
 player.on('error', error => {
     console.error(`Error: ${error.message} with resource ${error.resource.metadata.title}`);
 });
 
 client.on('ready', () => {
+    client.user.setActivity('youtube Playlist !!!', {type: "LISTENING"});
     console.log(`Logged in as ${client.user.tag}!`);
 });
 
@@ -117,14 +127,22 @@ client.on("messageCreate", message => {
         }
         search(request[1], opts, async function (err, results) {
             if (err) return console.log(err);
+            id = results[0].id
             url = results[0].link
             thumb = results[0].thumbnails
-            console.log(thumb)
             title = results[0].title
-            queue[queue.length] = url
-            console.log(queue)
-            console.log(queue.length)
-            if (queue.length === 1) {
+            if (results[0].kind === 'youtube#playlist') {
+                let urls = await get_playlist_urls(id)
+                for (let i = 0;urls[i];i++) {
+                    queue[queue.length] = urls[i]
+                }
+            console.log("playlist");
+            console.log(queue[queue.length - 1])
+            console.log(await get_playlist_count(id))
+            } else  {
+                queue[queue.length] = url
+            }
+            if (queue.length === 1 || await get_playlist_count(id) === queue.length) {
                 if (!message.member.voice.channel) return message.channel.send("Please connect to a voice channel");
                 voice_status = joinVoiceChannel({
                     channelId: message.member.voice.channel.id,
@@ -133,7 +151,7 @@ client.on("messageCreate", message => {
                 })
                 messId = message
                 let attach = await drawArtistInfo(thumb, title, message)
-                play_music(url, voice_status, message, attach)
+                play_music(queue[0], voice_status, message, attach)
             }
         });
     }
@@ -180,12 +198,16 @@ async function play_music(request, status, message, attach) {
      //If you are not in the voice channel, then return a message
      if (message) {
          if (attach) {
-             message.channel.send({files: [attach],embeds: [playEmbed], components: [playBar]})
+             message.channel.send({files: [attach], components: [playBar]})
          } else {
              message.channel.send({embeds: [playEmbed], components: [playBar]})
          }
      }
-     const resource = createAudioResource(await ytdl(request));
+     const resource = createAudioResource(await ytdl(request), {
+         metadata: {
+             title: "ytb"
+         },
+     });
     player.play(resource);
     status.subscribe(player);
 
