@@ -21,7 +21,7 @@ let messId
 
 var opts = {
     maxResults: 10,
-    key: ''
+    key: 'AIzaSyA6sMPfDmXIRx_mwaJ8wwQXzFUot0Ru6aA'
 };
 
 
@@ -84,7 +84,7 @@ player.on('error', error => {
 });
 
 client.on('ready', () => {
-    client.user.setActivity('youtube Playlist !!!', {type: "LISTENING"});
+    client.user.setActivity('|help', {type: "WATCHING"});
     console.log(`Logged in as ${client.user.tag}!`);
 });
 
@@ -187,7 +187,7 @@ client.on("messageCreate", message => {
     if  (request[0] === prefix + "clear") {
         queue = []
     }
-    if  (request[0] === prefix + "next") {
+    if  (request[0] === prefix + "next" || request[0] === prefix + "skip") {
         next_music(message)
     }
 
@@ -286,4 +286,4 @@ async function drawArtistInfo(thumb, title ,message) {
 
 
 
-client.login('');
+client.login('OTA0MTI1ODE5NTUzNzQyODUw.YX2-yQ._YvDr97dEUXMCZCKFKLwM_BxZws');
