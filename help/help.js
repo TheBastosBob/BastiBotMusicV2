@@ -3,7 +3,6 @@ const { Client, Intents, MessageEmbed, MessageButton, MessageActionRow, MessageA
 function drawHelp(prefix)
 {
 const helpEmbed = new MessageEmbed()
-    console.log(prefix)
         .setTitle('Help')
         .setColor('#0099ff')
         .setDescription('This is a help messag e')
