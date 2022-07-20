@@ -3,9 +3,10 @@ const { Client, Intents, MessageEmbed, MessageButton, MessageActionRow, MessageA
 function drawHelp(prefix)
 {
 const helpEmbed = new MessageEmbed()
+    console.log(prefix)
         .setTitle('Help')
         .setColor('#0099ff')
-        .setDescription('This is a help message')
+        .setDescription('This is a help messag e')
         .addFields(
             { name: prefix + 'help', value: 'Display this message' },
             { name: prefix + "play <ytb_url>", value: 'Play a song' },

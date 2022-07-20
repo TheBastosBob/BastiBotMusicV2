@@ -14,6 +14,7 @@ let voice_status
 const player = createAudioPlayer();
 let queue = []
 let messId
+let music_paused = false
 
 
 
@@ -108,8 +109,15 @@ client.on('interactionCreate', async interaction => {
         stop_music(voice_status)
     }
     if (interaction.customId === 'pause') {
-        await interaction.reply('Music paused')
-        pause_music(voice_status)
+        if (music_paused === false) {
+            await interaction.reply('Music paused')
+            pause_music(voice_status)
+            music_paused = true
+        } else {
+            await interaction.reply('Music unpaused')
+            unpause_music(voice_status)
+            music_paused = false
+        }
     }
     if (interaction.customId === 'next') {
         await interaction.reply('Skipped')
@@ -174,12 +182,14 @@ client.on("messageCreate", message => {
 
     }
     if  (request[0] === prefix + "pause") {
+        music_paused = true
         pause_music(voice_status, message)
     }
     if (request[0] === prefix + "help") {
         message.channel.send({embeds: [drawHelp(prefix)]})
     }
     if  (request[0] === prefix + "unpause") {
+        music_paused = false
         unpause_music(message,voice_status)
     }
     if  (request[0] === prefix + "stop") {
