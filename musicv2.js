@@ -177,7 +177,7 @@ client.on("messageCreate", message => {
         pause_music(voice_status, message)
     }
     if (request[0] === prefix + "help") {
-        message.channel.send({embeds: [drawHelp(message)]})
+        message.channel.send({embeds: [drawHelp(prefix)]})
     }
     if  (request[0] === prefix + "unpause") {
         unpause_music(message,voice_status)
