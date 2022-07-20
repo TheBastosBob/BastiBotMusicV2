@@ -1,11 +1,12 @@
 const { Client, Intents, MessageEmbed, MessageButton, MessageActionRow, MessageAttachment} = require('discord.js');
 var search = require('youtube-search');
+const { drawHelp } = require('./help/help.js')
 const ytdl = require('ytdl-core-discord');
 const { Youtube, Spotify } = require('you-lister')
 const { joinVoiceChannel, createAudioPlayer, NoSubscriberBehavior, createAudioResource, AudioPlayerStatus} = require('@discordjs/voice');
 const {playmusic} = require("./playmusic");
 const {thumbnail} = require("ytdl-core-discord");
-const Canvas = require("canvas");
+const Canvas = require('canvas');
 const {get_playlist_urls, get_playlist_count} = require("./playlist");
 const client = new Client({ intents: [Intents.FLAGS.GUILDS,Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES]});
 const prefix = '|'
@@ -174,6 +175,9 @@ client.on("messageCreate", message => {
     }
     if  (request[0] === prefix + "pause") {
         pause_music(voice_status, message)
+    }
+    if (request[0] === prefix + "help") {
+        message.channel.send({embeds: [drawHelp(message)]})
     }
     if  (request[0] === prefix + "unpause") {
         unpause_music(message,voice_status)
