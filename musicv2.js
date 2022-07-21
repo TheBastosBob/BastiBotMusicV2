@@ -1,4 +1,4 @@
-const { Client, Intents, EmbedBuilder, ButtonBuilder, MessageActionRow, MessageAttachment, GatewayIntentBits} = require('discord.js');
+const { Client, Intents, EmbedBuilder, ButtonStyle,  ButtonBuilder, MessageActionRow, MessageAttachment, GatewayIntentBits} = require('discord.js');
 require('dotenv').config();
 var search = require('youtube-search');
 const { drawHelp } = require('./help/help.js')
@@ -23,7 +23,7 @@ let music_paused = false
 
 var opts = {
     maxResults: 10,
-    key: 'AIzaSyA6sMPfDmXIRx_mwaJ8wwQXzFUot0Ru6aA'
+    key: process.env.YT_KEY
 };
 
 
@@ -295,4 +295,4 @@ async function drawArtistInfo(thumb, title ,message) {
 
 
 
-client.login(process.env.token);
+client.login(process.env.DISCORD_TOKEN);
