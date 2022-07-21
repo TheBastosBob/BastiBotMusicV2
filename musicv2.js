@@ -28,29 +28,29 @@ var opts = {
 
 
 
-const NextButton = new MessageButton()
+const NextButton = new ButtonBuilder()
     .setCustomId('next')
     .setLabel('')
-    .setStyle('PRIMARY')
+    .setStyle(ButtonStyle.Primary)
     .setEmoji('⏭️');
 
-const PauseButton = new MessageButton()
+const PauseButton = new ButtonBuilder()
     .setCustomId('pause')
     .setLabel('')
-    .setStyle('PRIMARY')
+    .setStyle(ButtonStyle.Primary)
     .setEmoji('⏯');
 
 
-const UnpauseButton = new MessageButton()
+const UnpauseButton = new ButtonBuilder()
     .setCustomId('primary')
     .setLabel('Primary')
-    .setStyle('PRIMARY')
+    .setStyle(ButtonStyle.Primary)
     .setEmoji('123456789012345678');
 
-const StopButton = new MessageButton()
+const StopButton = new ButtonBuilder()
     .setCustomId('stop')
     .setLabel('')
-    .setStyle('PRIMARY')
+    .setStyle(ButtonStyle.Primary)
     .setEmoji('🟥');
 
 
