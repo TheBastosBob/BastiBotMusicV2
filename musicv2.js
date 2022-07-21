@@ -1,5 +1,5 @@
 const { Client,
-    EmbedBuilder, ButtonStyle,  ButtonBuilder, ActionRowBuilder, ActivityType ,MessageAttachment, GatewayIntentBits
+    EmbedBuilder, ButtonStyle,  ButtonBuilder, ActionRowBuilder, ActivityType ,AttachmentBuilder,  GatewayIntentBits
 } = require('discord.js');
 require('dotenv').config();
 const search = require('youtube-search');
@@ -153,7 +153,7 @@ client.on("messageCreate", message => {
                 })
                 messId = message
                 let attach = await drawArtistInfo(thumb, title)
-                play_music(queue[0], voice_status, message, attach)
+                await play_music(queue[0], voice_status, message, attach)
             }
         });
     }
@@ -274,7 +274,7 @@ async function drawArtistInfo(thumb, title) {
     context.fillStyle = '#ffffff';
     context.fillText(title,  10, 30);
 
-    return new MessageAttachment(canvas.toBuffer(), 'ArtistInfo.jpg')
+    return new AttachmentBuilder(canvas.toBuffer(), 'ArtistInfo.jpg')
 }
 
 
