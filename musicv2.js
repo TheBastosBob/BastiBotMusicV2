@@ -1,4 +1,4 @@
-const { Client, Intents, EmbedBuilder, ButtonStyle,  ButtonBuilder, MessageActionRow, MessageAttachment, GatewayIntentBits} = require('discord.js');
+const { Client, Intents, EmbedBuilder, ButtonStyle,  ButtonBuilder, ActionRowBuilder, MessageAttachment, GatewayIntentBits} = require('discord.js');
 require('dotenv').config();
 var search = require('youtube-search');
 const { drawHelp } = require('./help/help.js')
@@ -51,7 +51,7 @@ const StopButton = new ButtonBuilder()
     .setEmoji('🟥');
 
 
-const playBar = new MessageActionRow()
+const playBar = new ActionRowBuilder()
     .addComponents(
         StopButton,
         PauseButton,
@@ -248,11 +248,6 @@ function next_music(message) {
     }
     player.stop()
 }
-
-
-
-
-
 
 const applyText = (canvas, text) => {
     const context = canvas.getContext('2d');
