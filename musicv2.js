@@ -1,13 +1,11 @@
-const { Client, Intents, EmbedBuilder, ButtonStyle,  ButtonBuilder, ActionRowBuilder, ActivityType ,MessageAttachment, GatewayIntentBits, INt,
-    Activity
+const { Client,
+    EmbedBuilder, ButtonStyle,  ButtonBuilder, ActionRowBuilder, ActivityType ,MessageAttachment, GatewayIntentBits
 } = require('discord.js');
 require('dotenv').config();
-var search = require('youtube-search');
+const search = require('youtube-search');
 const { drawHelp } = require('./help/help.js')
 const ytdl = require('ytdl-core-discord');
-const { Youtube, Spotify } = require('you-lister')
-const { joinVoiceChannel, createAudioPlayer, NoSubscriberBehavior, createAudioResource, AudioPlayerStatus} = require('@discordjs/voice');
-const {thumbnail} = require("ytdl-core-discord");
+const { joinVoiceChannel, createAudioPlayer, createAudioResource, AudioPlayerStatus} = require('@discordjs/voice');
 const Canvas = require('canvas');
 const {get_playlist_urls, get_playlist_count} = require("./playlist");
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
@@ -23,11 +21,10 @@ let music_paused = false
 //SET BASTIBOT ACTIVITY
 
 
-var opts = {
+let opts = {
     maxResults: 10,
     key: process.env.YT_KEY
 };
-
 
 
 const NextButton = new ButtonBuilder()
@@ -39,14 +36,11 @@ const PauseButton = new ButtonBuilder()
     .setCustomId('pause')
     .setStyle(ButtonStyle.Primary)
     .setEmoji('⏯');
-
-
-const UnpauseButton = new ButtonBuilder()
+new ButtonBuilder()
     .setCustomId('primary')
     .setLabel('Primary')
     .setStyle(ButtonStyle.Primary)
     .setEmoji('123456789012345678');
-
 const StopButton = new ButtonBuilder()
     .setCustomId('stop')
     .setStyle(ButtonStyle.Primary)
@@ -113,7 +107,7 @@ client.on('interactionCreate', async interaction => {
             music_paused = true
         } else {
             await interaction.reply('Music unpaused')
-            unpause_music(voice_status)
+            unpause_music()
             music_paused = false
         }
     }
@@ -125,6 +119,7 @@ client.on('interactionCreate', async interaction => {
 
 
 client.on("messageCreate", message => {
+    console.log(message.content)
     if (message.author.bot) return;
     let request = message.content.split(" ");
 
@@ -157,7 +152,7 @@ client.on("messageCreate", message => {
                     adapterCreator: message.guild.voiceAdapterCreator
                 })
                 messId = message
-                let attach = await drawArtistInfo(thumb, title, message)
+                let attach = await drawArtistInfo(thumb, title)
                 play_music(queue[0], voice_status, message, attach)
             }
         });
@@ -188,7 +183,7 @@ client.on("messageCreate", message => {
     }
     if  (request[0] === prefix + "unpause") {
         music_paused = false
-        unpause_music(message,voice_status)
+        unpause_music()
     }
     if  (request[0] === prefix + "stop") {
         stop_music(voice_status)
@@ -234,7 +229,7 @@ function pause_music(status, message) {
     player.pause()
 }
 
-function unpause_music(message, status) {
+function unpause_music() {
     player.unpause()
 }
 
@@ -268,7 +263,7 @@ const applyText = (canvas, text) => {
 };
 
 
-async function drawArtistInfo(thumb, title ,message) {
+async function drawArtistInfo(thumb, title) {
     const canvas = Canvas.createCanvas(thumb.high.width, thumb.high.height);
     const context = canvas.getContext('2d');
     const background = await Canvas.loadImage(thumb.high.url);
@@ -279,9 +274,7 @@ async function drawArtistInfo(thumb, title ,message) {
     context.fillStyle = '#ffffff';
     context.fillText(title,  10, 30);
 
-    const attachment = new MessageAttachment(canvas.toBuffer(), 'ArtistInfo.jpg');
-
-    return attachment
+    return new MessageAttachment(canvas.toBuffer(), 'ArtistInfo.jpg')
 }
 
 
