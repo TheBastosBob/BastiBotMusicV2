@@ -1,4 +1,4 @@
-const { Client, Intents, MessageEmbed, MessageButton, MessageActionRow, MessageAttachment, GatewayIntentBits} = require('discord.js');
+const { Client, Intents, EmbedBuilder, ButtonBuilder, MessageActionRow, MessageAttachment, GatewayIntentBits} = require('discord.js');
 require('dotenv').config();
 var search = require('youtube-search');
 const { drawHelp } = require('./help/help.js')
@@ -63,19 +63,19 @@ const playBar = new MessageActionRow()
 
 
 
-const pauseEmbed = new MessageEmbed()
+const pauseEmbed = new EmbedBuilder()
     .setColor('#0099ff')
     .setTitle('Music is pause')
 
-const playEmbed = new MessageEmbed()
+const playEmbed = new EmbedBuilder()
     .setColor('#0099ff')
     .setTitle('Now playing')
 
-const nextEmbed = new MessageEmbed()
+const nextEmbed = new EmbedBuilder()
     .setColor('#0099ff')
     .setTitle('Skip music')
 
-const queuEmbed = new MessageEmbed()
+const queuEmbed = new EmbedBuilder()
     .setColor('#0099ff')
     .setTitle('Music in queue')
 
