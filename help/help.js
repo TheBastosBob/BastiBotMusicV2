@@ -1,8 +1,8 @@
-const { Client, Intents, MessageEmbed, MessageButton, MessageActionRow, MessageAttachment} = require('discord.js');
+const { Client, Intents, MessageEmbed, MessageButton, MessageActionRow, MessageAttachment, EmbedBuilder} = require('discord.js');
 
 function drawHelp(prefix)
 {
-const helpEmbed = new MessageEmbed()
+const helpEmbed = new EmbedBuilder()
         .setTitle('Help')
         .setColor('#0099ff')
         .setDescription('This is a help messag e')
