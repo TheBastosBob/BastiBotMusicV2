@@ -1,4 +1,6 @@
-const { Client, Intents, EmbedBuilder, ButtonStyle,  ButtonBuilder, ActionRowBuilder, MessageAttachment, GatewayIntentBits, } = require('discord.js');
+const { Client, Intents, EmbedBuilder, ButtonStyle,  ButtonBuilder, ActionRowBuilder, ActivityType ,MessageAttachment, GatewayIntentBits, INt,
+    Activity
+} = require('discord.js');
 require('dotenv').config();
 var search = require('youtube-search');
 const { drawHelp } = require('./help/help.js')
@@ -8,7 +10,7 @@ const { joinVoiceChannel, createAudioPlayer, NoSubscriberBehavior, createAudioRe
 const {thumbnail} = require("ytdl-core-discord");
 const Canvas = require('canvas');
 const {get_playlist_urls, get_playlist_count} = require("./playlist");
-const client = new Client({ intents: GatewayIntentBits.Guilds });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
 const prefix = '|'
 let voice_status
 const player = createAudioPlayer();
@@ -83,7 +85,7 @@ player.on('error', error => {
 });
 
 client.on('ready', () => {
-    client.user.setActivity('|help', {type: "WATCHING"});
+    client.user.setActivity('|help', {type: ActivityType.Watching});
     console.log(`Logged in as ${client.user.tag}!`);
 });
 
@@ -132,10 +134,10 @@ client.on("messageCreate", message => {
         }
         search(request[1], opts, async function (err, results) {
             if (err) return console.log(err);
-            id = results[0].id
-            url = results[0].link
-            thumb = results[0].thumbnails
-            title = results[0].title
+            let id = results[0].id
+            let url = results[0].link
+            let thumb = results[0].thumbnails
+            let title = results[0].title
             if (results[0].kind === 'youtube#playlist') {
                 let urls = await get_playlist_urls(id)
                 for (let i = 0;urls[i];i++) {
