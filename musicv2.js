@@ -119,7 +119,7 @@ client.on('interactionCreate', async interaction => {
 
 
 client.on("messageCreate", message => {
-    console.log(message.content)
+    console.log(message.content.length)
     if (message.author.bot) return;
     let request = message.content.split(" ");
 
