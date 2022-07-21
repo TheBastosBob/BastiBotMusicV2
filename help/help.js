@@ -1,4 +1,4 @@
-const { Client, Intents, MessageEmbed, MessageButton, MessageActionRow, MessageAttachment, EmbedBuilder} = require('discord.js');
+const { Client, Intents, MessageEmbed, MessageButton, MessageActionRow, MessageAttachment, EmbedBuilder, Formatters} = require('discord.js');
 
 function drawHelp(prefix)
 {
@@ -18,7 +18,6 @@ const helpEmbed = new EmbedBuilder()
             { name: prefix + 'queue', value: 'Display the queue' },
             { name: prefix + 'clear', value: 'Clear the queue' })
         .setTimestamp()
-        .setFooter('Made by @BastosBob');
     return helpEmbed;
 }
 
