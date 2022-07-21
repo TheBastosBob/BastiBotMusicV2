@@ -30,13 +30,11 @@ var opts = {
 
 const NextButton = new ButtonBuilder()
     .setCustomId('next')
-    .setLabel('')
     .setStyle(ButtonStyle.Primary)
     .setEmoji('⏭️');
 
 const PauseButton = new ButtonBuilder()
     .setCustomId('pause')
-    .setLabel('')
     .setStyle(ButtonStyle.Primary)
     .setEmoji('⏯');
 
@@ -49,7 +47,6 @@ const UnpauseButton = new ButtonBuilder()
 
 const StopButton = new ButtonBuilder()
     .setCustomId('stop')
-    .setLabel('')
     .setStyle(ButtonStyle.Primary)
     .setEmoji('🟥');
 
