@@ -1,14 +1,14 @@
-const { Client, Intents, MessageEmbed, MessageButton, MessageActionRow, MessageAttachment} = require('discord.js');
+const { Client, Intents, MessageEmbed, MessageButton, MessageActionRow, MessageAttachment, GatewayIntentBits} = require('discord.js');
+require('dotenv').config();
 var search = require('youtube-search');
 const { drawHelp } = require('./help/help.js')
 const ytdl = require('ytdl-core-discord');
 const { Youtube, Spotify } = require('you-lister')
 const { joinVoiceChannel, createAudioPlayer, NoSubscriberBehavior, createAudioResource, AudioPlayerStatus} = require('@discordjs/voice');
-const {playmusic} = require("./playmusic");
 const {thumbnail} = require("ytdl-core-discord");
 const Canvas = require('canvas');
 const {get_playlist_urls, get_playlist_count} = require("./playlist");
-const client = new Client({ intents: [Intents.FLAGS.GUILDS,Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES]});
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
 const prefix = '|'
 let voice_status
 const player = createAudioPlayer();
@@ -103,7 +103,6 @@ player.on(AudioPlayerStatus.Idle, () => {
 
 client.on('interactionCreate', async interaction => {
     if (!interaction.isButton()) return;
-    //console.log(interaction);
     if (interaction.customId === 'stop') {
         await interaction.reply('Music Stopped')
         stop_music(voice_status)
@@ -209,7 +208,6 @@ client.on("messageCreate", message => {
 
 async function play_music(request, status, message, attach) {
 
-     //If you are not in the voice channel, then return a message
      if (message) {
          if (attach) {
              message.channel.send({files: [attach], components: [playBar]})
@@ -300,4 +298,4 @@ async function drawArtistInfo(thumb, title ,message) {
 
 
 
-client.login('OTA0MTI1ODE5NTUzNzQyODUw.YX2-yQ._YvDr97dEUXMCZCKFKLwM_BxZws');
+client.login(process.env.token);
