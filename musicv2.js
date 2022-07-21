@@ -1,4 +1,4 @@
-const { Client, Intents, EmbedBuilder, ButtonStyle,  ButtonBuilder, ActionRowBuilder, MessageAttachment, GatewayIntentBits} = require('discord.js');
+const { Client, Intents, EmbedBuilder, ButtonStyle,  ButtonBuilder, ActionRowBuilder, MessageAttachment, GatewayIntentBits, } = require('discord.js');
 require('dotenv').config();
 var search = require('youtube-search');
 const { drawHelp } = require('./help/help.js')
@@ -8,7 +8,7 @@ const { joinVoiceChannel, createAudioPlayer, NoSubscriberBehavior, createAudioRe
 const {thumbnail} = require("ytdl-core-discord");
 const Canvas = require('canvas');
 const {get_playlist_urls, get_playlist_count} = require("./playlist");
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
+const client = new Client({ intents: GatewayIntentBits.Guilds });
 const prefix = '|'
 let voice_status
 const player = createAudioPlayer();
