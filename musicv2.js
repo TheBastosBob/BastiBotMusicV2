@@ -8,7 +8,7 @@ const ytdl = require('ytdl-core-discord');
 const { joinVoiceChannel, createAudioPlayer, createAudioResource, AudioPlayerStatus} = require('@discordjs/voice');
 const Canvas = require('canvas');
 const {get_playlist_urls, get_playlist_count} = require("./playlist");
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.DirectMessages, GatewayIntentBits.MessageContent] });
 const prefix = '|'
 let voice_status
 const player = createAudioPlayer();
