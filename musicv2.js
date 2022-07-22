@@ -1,6 +1,7 @@
 const { Client, Intents, MessageEmbed, MessageButton, MessageActionRow, MessageAttachment} = require('discord.js');
 var search = require('youtube-search');
 const { drawHelp } = require('./help/help.js')
+require('dotenv').config();
 const ytdl = require('ytdl-core-discord');
 const { Youtube, Spotify } = require('you-lister')
 const { joinVoiceChannel, createAudioPlayer, NoSubscriberBehavior, createAudioResource, AudioPlayerStatus} = require('@discordjs/voice');
@@ -23,7 +24,7 @@ let music_paused = false
 
 var opts = {
     maxResults: 10,
-    key: 'AIzaSyA6sMPfDmXIRx_mwaJ8wwQXzFUot0Ru6aA'
+    key: process.env.YT_KEY
 };
 
 
@@ -300,4 +301,4 @@ async function drawArtistInfo(thumb, title ,message) {
 
 
 
-client.login('OTA0MTI1ODE5NTUzNzQyODUw.YX2-yQ._YvDr97dEUXMCZCKFKLwM_BxZws');
+client.login(process.env.DISCORD_TOKEN);
