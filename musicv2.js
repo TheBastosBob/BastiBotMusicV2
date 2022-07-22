@@ -223,7 +223,7 @@ async function play_music(request, status, message, attach) {
              title: "ytb"
          },
      });
-    player.play(resource);
+    player.play(resource, {bitrate: 192000});
     status.subscribe(player);
 
 
