@@ -143,6 +143,7 @@ client.on("messageCreate", message => {
             console.log(await get_playlist_count(id))
             } else  {
                 queue[queue.length] = url
+                //print the queue
             }
             if (queue.length === 1 || await get_playlist_count(id) === queue.length) {
                 if (!message.member.voice.channel) return message.channel.send("Please connect to a voice channel");
